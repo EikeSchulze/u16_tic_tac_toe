@@ -44,6 +44,24 @@ pub struct GridIndex {
 /// A value that is too big to be a [GridIndex](struct.GridIndex.html).
 pub type TooBigIndex = u8;
 
+impl GridIndex {
+    /// Tries to create a GridIndex with the given value.
+    /// A value in the range of [0, 8] will return a valid GridIndex.
+    /// A value outside of that range will return a TooBigIndex error.
+    pub const fn try_new(value: u8) -> Result<Self, TooBigIndex> {
+        if value < 9 {
+            Ok(GridIndex { value })
+        } else {
+            Err(value)
+        }
+    }
+
+    /// Returns the value of this GridIndex.
+    pub const fn get_value(&self) -> u8 {
+        self.value
+    }
+}
+
 impl Into<u8> for GridIndex {
     fn into(self) -> u8 {
         self.value
@@ -54,10 +72,6 @@ impl TryFrom<u8> for GridIndex {
     type Error = TooBigIndex;
 
     fn try_from(value: u8) -> Result<Self, Self::Error> {
-        if value < 9 {
-            Ok(GridIndex { value })
-        } else {
-            Err(value)
-        }
+        Self::try_new(value)
     }
 }

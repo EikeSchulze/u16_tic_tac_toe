@@ -50,13 +50,13 @@ impl Grid {
     /// assert_eq!(grid.get(BOTTOM), FieldState::Blank);
     /// assert_eq!(grid.get(BOTTOM_RIGHT), FieldState::Blank);
     /// ```
-    pub fn blank_grid() -> Self {
+    pub const fn blank_grid() -> Self {
         Grid { grid: 0 }
     }
 
     /// Returns the [FieldState](../enum.FieldState.html) of the grid at the given [GridIndex](../struct.GridIndex.html).
     pub fn get(&self, index: GridIndex) -> FieldState {
-        let index: u8 = index.into();
+        let index = index.get_value();
         let divisor = BASE.pow(index as u32);
         let value = self.grid / divisor;
         let value = value % BASE;
@@ -77,7 +77,7 @@ impl Grid {
     /// assert_eq!(grid.get(MIDDLE), FieldState::PlayerX);
     /// ```
     pub fn set(&mut self, index: GridIndex, value: FieldState) {
-        let index: u8 = index.into();
+        let index = index.get_value();
         let new_value = value as u16;
         let divisor = BASE.pow(index as u32);
         let lower_part = self.grid % divisor;
