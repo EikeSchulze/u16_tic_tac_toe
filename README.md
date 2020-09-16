@@ -14,7 +14,7 @@ To enumerate all of these grids, 15 bits are needed (ld(19683) < 15).
 
 ## Grid representation
 
-As we have 9 fields with 3 possible states each, we can encode a field as a trinary number with 9 digits (trigits?).
+As we have 9 fields with 3 possible states each, we can encode a field as a trinary number with 9 digits.
 
 Each field state is given a value:
 
